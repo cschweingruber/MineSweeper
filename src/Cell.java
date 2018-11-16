@@ -12,9 +12,14 @@ public class Cell extends JButton implements MouseListener {
      */
     private int state = 0;
 
-    public Cell() {
+    public Cell(String text) {
 //        setSize(width, height);
+        setButtonText(text);
         addMouseListener(this);
+    }
+
+    void setButtonText(String text) {
+        setText(text);
     }
 
     private void reveal() {

@@ -1,8 +1,9 @@
 public class GameController {
 
     private UserInterface ui;
+    private StartScreen start;
 
     public GameController() {
-        ui = new UserInterface();
+        start = new StartScreen();
     }
 }

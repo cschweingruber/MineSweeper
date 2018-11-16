@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Field extends JPanel {
     private Cell[][] cells;
@@ -19,7 +17,7 @@ public class Field extends JPanel {
         System.out.println("getWidth(): " + getWidth());
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells.length; j++) {
-                cells[i][j] = new Cell();
+                cells[i][j] = new Cell(String.valueOf(i) + String.valueOf(j));
                 add(cells[i][j]);
             }
         }
