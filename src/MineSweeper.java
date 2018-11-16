@@ -4,6 +4,6 @@ public class MineSweeper {
     }
 
     private MineSweeper() {
-
+        GameController controller = new GameController();
     }
 }

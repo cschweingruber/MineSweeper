@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class Cell extends JFrame implements MouseListener {
+public class Cell extends JButton implements MouseListener {
 
     /**
      * state variable
@@ -26,7 +26,7 @@ public class Cell extends JFrame implements MouseListener {
     }
 
     private void reveal() {
-
+        System.out.println("clicked");
     }
 
     @Override
