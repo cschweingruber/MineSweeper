@@ -10,19 +10,11 @@ public class Cell extends JButton implements MouseListener {
      * can be turned (1)
      * can be a bomb (2)
      */
-    private int state;
-
-    private int size;
-
-    private JFrame cell;
+    private int state = 0;
 
     public Cell() {
-        cell = new JFrame();
+//        setSize(width, height);
         addMouseListener(this);
-    }
-
-    private void createCell() {
-
     }
 
     private void reveal() {
@@ -52,5 +44,13 @@ public class Cell extends JButton implements MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {
 
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
     }
 }
