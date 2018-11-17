@@ -7,7 +7,7 @@ public class UserInterface extends JFrame {
     //BEST SHIET EVER
     private GridLayout layout;
 
-    public UserInterface(int number_of_cells) {
+    public UserInterface(int number_of_cells) throws InterruptedException {
         layout = new GridLayout();
         setLayout(layout);
         setSize(500, 500);

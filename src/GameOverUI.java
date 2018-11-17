@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.awt.*;
 
 public class GameOverUI extends JFrame {
     private StartScreen startScreen;

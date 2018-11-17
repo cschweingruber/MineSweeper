@@ -21,6 +21,7 @@ public class Field extends JPanel {
         gridLayout = new GridLayout(NUMBER_OF_CELLS, NUMBER_OF_CELLS);
         cells = new Cell[NUMBER_OF_CELLS][NUMBER_OF_CELLS];
         generateField();
+        setNeighbors();
     }
 
     private void generateField() {
@@ -39,5 +40,32 @@ public class Field extends JPanel {
                 add(cells[i][j]);
             }
         }
+    }
+
+    private void setNeighbors() {
+        int bombCounter = 0;
+        //FOR EVERY CELL
+        for (int col = 0; col < cells.length; col++) {
+            for (int row = 0; row < cells.length; row++) {
+                //CHECK FIELD OF 9
+                for (int i = -1; i <= 1; i++) {
+                    for (int j = -1; j <= 1; j++) {
+                        try {
+                            if (i == 0 && j == 0) {}
+                            else if (cells[col - i][row - j].getState() == CellState.BOMB) {
+                                bombCounter++;
+                            }
+                        } catch (ArrayIndexOutOfBoundsException aoobex) {
+                        }
+                    }
+                }
+                //END CHECK FIELD OF 9
+                if (cells[col][row].getState() != CellState.BOMB) {
+                    cells[col][row].setBombNeighbors(bombCounter);
+                }
+                bombCounter = 0;
+            }
+        }
+        //END FIELD
     }
 }

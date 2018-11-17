@@ -81,27 +81,19 @@ public class Cell extends JButton {
      * can be covered (default) (CellState.NOT_CLICKED)
      * can be turned (CellState.CLICKED)
      */
-    private CellState state = CellState.NOT_CLICKED;
+    private CellState state;
+
+    private CellClickState clickState = CellClickState.NOT_CLICKED;
 
     private String id;
 
-    public double size;
+    private int bombNeighbors;
 
     public Cell(CellState cellState) {
         setState(cellState);
-
-        //DEBUG PURPOSE
-        //TODO: remove
-        switch (state) {
-            case BOMB:
-                setText("b");
-                break;
-            case DEFAULT:
-                setText("");
-                break;
+        if (cellState == CellState.BOMB) {
+            setBackground(Color.black);
         }
-
-
         addMouseListener(new Player() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -111,10 +103,15 @@ public class Cell extends JButton {
     }
 
     public void reveal() {
+        if (this.bombNeighbors == 0) {
+            setText("");
+        } else {
+            setText("" + bombNeighbors);
+        }
         //TODO: REVEAL
-        setState(CellState.CLICKED);
+        setClickState(CellClickState.CLICKED);
         System.out.println("reveal");
-        setBackground(Color.BLUE);
+        setBackground(Color.GRAY);
     }
 
     public String getId() {
@@ -131,6 +128,22 @@ public class Cell extends JButton {
 
     public void setState(CellState state) {
         this.state = state;
+    }
+
+    public int getBombNeighbors() {
+        return bombNeighbors;
+    }
+
+    public void setBombNeighbors(int bombNeighbors) {
+        this.bombNeighbors = bombNeighbors;
+    }
+
+    public CellClickState getClickState() {
+        return clickState;
+    }
+
+    public void setClickState(CellClickState clickState) {
+        this.clickState = clickState;
     }
 
 }
