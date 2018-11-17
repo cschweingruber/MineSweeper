@@ -1,4 +1,6 @@
 public enum CellState {
     CLICKED,
-    NOT_CLICKED
+    NOT_CLICKED,
+    BOMB,
+    DEFAULT
 }

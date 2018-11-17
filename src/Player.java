@@ -1,64 +1,58 @@
-import java.awt.*;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.ArrayList;
-import java.util.List;
 
-public class Player implements MouseListener {
+public abstract class Player extends MouseAdapter {
 
-    Field field;
+    public static boolean gameover;
 
     public Player() {
-
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        System.out.println("clicked");
         Cell[][] cellsToReveal = new Cell[2][2];
-        List<Cell> cellList = new ArrayList<Cell>();
+        /*
+         * Cell which has been clicked
+         */
         Cell cell = (Cell) e.getSource();
 
+        int xPosCenterCell = Integer.parseInt(cell.getId().substring(0,1));
+        int yPosCenterCell = Integer.parseInt(cell.getId().substring(1,2));
+
+        //check if directly hit a bomb
+        if (Field.cells[xPosCenterCell][yPosCenterCell].getState() == CellState.BOMB) {
+            //TODO: gameover
+            System.out.println("gameOver!!");
+            gameover = true;
+        }
+
         try {
-            for (int i = 0; i < field.cells.length; i++) {
-                for (int j = 0; j < field.cells.length; j++) {
-                    if ((field.cells[i][j].getLocation(new Point(cell.getxPos(), cell.getyPos()))) - (field.cells[i][j].getLocation(new Point(cell.getxPos(), cell.getyPos()))) <= (Math.sqrt(Math.pow(field.cells[i][j].size, 2) + Math.pow(field.cells[i][j].size, 2)))) {
-                        cellList.add(field.cells[i][j]);
+            int noBomb = 0;
+            for (int i = -1; i <= 1; i++) {
+                for (int j = -1; j <= 1; j++) {
+                    try {
+                        if (Field.cells[xPosCenterCell - i][yPosCenterCell - j].getState() != CellState.CLICKED) {
+                            Field.cells[xPosCenterCell - i][yPosCenterCell - j].reveal();
+                            if (Field.cells[xPosCenterCell - i] [yPosCenterCell - j].getState() != CellState.BOMB) {
+                                noBomb++;
+                            }
+                        } else {
+                            //TODO: remove
+                            System.out.println("field "+ String.valueOf(yPosCenterCell - j) + String.valueOf(xPosCenterCell - i) + " already clicked");
+                        }
+                    } catch (ArrayIndexOutOfBoundsException ex) {
+                        System.out.println("clicked bound field. catching ex...");
                     }
                 }
             }
-
-            for (int i = 0; i < cellList.size(); i++) {
-                for (int j = 0; j < cellList.size(); j++) {
-                    cellsToReveal[i][j] = cellList.get(i);
-                }
+            if (noBomb == 9) {
+                //TODO: recursivyl cover up
+                System.out.println("no bom in view. covering recursively up");
             }
-        } catch (ArrayIndexOutOfBoundsException ex) {
-            System.out.println("ArrayOOB");
-            ex.printStackTrace();
         } catch (Exception exc) {
             exc.printStackTrace();
         }
-
-        cell.reveal();
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
     }
 }
+

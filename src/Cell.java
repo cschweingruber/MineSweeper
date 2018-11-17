@@ -71,31 +71,50 @@
 //}
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseEvent;
 
 public class Cell extends JButton {
 
     /**
      * state variable
-     * can be covered (default) (0)
-     * can be turned (1)
-     * can be a bomb (2)
-     *
+     * can be covered (default) (CellState.NOT_CLICKED)
+     * can be turned (CellState.CLICKED)
      */
-    private int state = 0;
+    private CellState state = CellState.NOT_CLICKED;
 
     private String id;
 
     public double size;
 
-    private int xPos = getX();
+    public Cell(CellState cellState) {
+        setState(cellState);
 
-    private int yPos = getY();
+        //DEBUG PURPOSE
+        //TODO: remove
+        switch (state) {
+            case BOMB:
+                setText("b");
+                break;
+            case DEFAULT:
+                setText("");
+                break;
+        }
 
-    public Cell() {
+
+        addMouseListener(new Player() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+            }
+        });
     }
 
     public void reveal() {
         //TODO: REVEAL
+        setState(CellState.CLICKED);
+        System.out.println("reveal");
+        setBackground(Color.BLUE);
     }
 
     public String getId() {
@@ -106,28 +125,12 @@ public class Cell extends JButton {
         this.id = id;
     }
 
-    public int getState() {
+    public CellState getState() {
         return state;
     }
 
-    public void setState(int state) {
+    public void setState(CellState state) {
         this.state = state;
-    }
-
-    public int getxPos() {
-        return xPos;
-    }
-
-    public void setxPos(int xPos) {
-        this.xPos = xPos;
-    }
-
-    public int getyPos() {
-        return yPos;
-    }
-
-    public void setyPos(int yPos) {
-        this.yPos = yPos;
     }
 
 }
