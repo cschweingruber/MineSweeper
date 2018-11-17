@@ -22,33 +22,34 @@ public abstract class Player extends MouseAdapter {
                 int yPosCenterCell = Integer.parseInt(cell.getId().substring(1, 2));
 
                 //check if directly hit a bomb
-                if (Field.cells[xPosCenterCell][yPosCenterCell].getState() == CellState.BOMB) {
-                    //TODO: gameover
-                    System.out.println("gameOver!!");
-                    gameover = true;
-                }
+//                if (Field.cells[xPosCenterCell][yPosCenterCell].getState() == CellState.BOMB) {
+//                    //TODO: gameover
+//                    System.out.println("gameOver!!");
+//                    gameover = true;
+//                }
 
-                for (int i = -1; i <= 1; i++) {
-                    for (int j = -1; j <= 1; j++) {
-                        try {
-                            if (Field.cells[xPosCenterCell - i][yPosCenterCell - j].getState() != CellState.BOMB) {
-//
-                                if (Field.cells[xPosCenterCell - i][yPosCenterCell - j].getBombNeighbors() == 0 && Field.cells[xPosCenterCell - i][yPosCenterCell - j].getClickState() != CellClickState.CLICKED) {
-                                    for (int n = -1; n <= 1; n++) {
-                                        for (int m = -1; m <= 1; m++) {
-                                            if (Field.cells[xPosCenterCell - i][yPosCenterCell - j].getBombNeighbors() == 0)
-                                            Field.cells[(xPosCenterCell - i) - n][(yPosCenterCell - j) - j].reveal();
-                                            Field.cells[(xPosCenterCell - i) - n][(yPosCenterCell - j) - j].setClickState(CellClickState.CLICKED);
-                                        }
+                try {
+                    if (Field.cells[xPosCenterCell][yPosCenterCell].getState() != CellState.BOMB) {
+                        if (Field.cells[xPosCenterCell][yPosCenterCell].getBombNeighbors() == 0 && Field.cells[xPosCenterCell][yPosCenterCell].getClickState() != CellClickState.CLICKED) {
+                            for (int i = -1; i <= 1; i++) {
+                                for (int j = -1; j <= 1; j++) {
+                                    if (Field.cells[xPosCenterCell + i][yPosCenterCell + j].getBombNeighbors() == 0) {
+                                        Field.cells[(xPosCenterCell + i) + i][(yPosCenterCell + j) + j].reveal();
+                                        Field.cells[(xPosCenterCell + i) + i][(yPosCenterCell + j) + j].setClickState(CellClickState.CLICKED);
                                     }
                                 }
-
-                                Field.cells[xPosCenterCell - i][yPosCenterCell - j].reveal();
-                                Field.cells[xPosCenterCell - i][yPosCenterCell - j].setClickState(CellClickState.CLICKED);
                             }
-                        } catch (ArrayIndexOutOfBoundsException aoobex) {
+                        } else {
+                            System.out.println("else x: " + xPosCenterCell);
+                            System.out.println("else y: " + yPosCenterCell);
+                            Field.cells[xPosCenterCell][yPosCenterCell].reveal();
+                            Field.cells[xPosCenterCell][yPosCenterCell].setClickState(CellClickState.CLICKED);
                         }
+                    } else {
+                        gameover = true;
+                        System.out.println("gameover");
                     }
+                } catch (ArrayIndexOutOfBoundsException aoobex) {
                 }
             }
         } else {
