@@ -1,10 +1,10 @@
-public class GameController {
+public class GUIController {
 
     private UserInterface ui;
     private StartScreen start;
     Player player;
 
-    public GameController() {
+    public GUIController() {
         start = new StartScreen();
     }
 }

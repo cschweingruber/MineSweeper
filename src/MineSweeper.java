@@ -15,6 +15,6 @@ public class MineSweeper {
     }
 
     private MineSweeper() {
-        new GameController();
+        new GUIController();
     }
 }
