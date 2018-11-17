@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.EventObject;
 
 public abstract class Player extends MouseAdapter {
 
@@ -14,8 +15,14 @@ public abstract class Player extends MouseAdapter {
         /*
          * Cell which has been clicked
          */
+
+
+
+
         cell = (Cell) e.getSource();
         if (SwingUtilities.isLeftMouseButton(e)) {
+
+
             if (cell.getClickState() != CellClickState.PROTECTED) {
 
                 int xPosCenterCell = Integer.parseInt(cell.getId().substring(0, 1));
@@ -32,8 +39,22 @@ public abstract class Player extends MouseAdapter {
                     for (int j = -1; j <= 1; j++) {
                         try {
                             if (Field.cells[xPosCenterCell - i][yPosCenterCell - j].getState() != CellState.BOMB) {
-                                Field.cells[xPosCenterCell - i][yPosCenterCell - j].reveal();
-                                Field.cells[xPosCenterCell - i][yPosCenterCell - j].setClickState(CellClickState.CLICKED);
+//
+//                                if (Field.cells[xPosCenterCell - i][yPosCenterCell - j].getBombNeighbors() == 0 && Field.cells[xPosCenterCell - i][yPosCenterCell - j].getClickState() != CellClickState.CLICKED) {
+//                                    for (int n = -1; n <= 1; n++) {
+//                                        for (int m = -1; m <= 1; m++) {
+//                                            if (Field.cells[xPosCenterCell - i][yPosCenterCell - j].getBombNeighbors() == 0)
+//                                            Field.cells[(xPosCenterCell - i) - n][(yPosCenterCell - j) - j].reveal();
+//                                            Field.cells[(xPosCenterCell - i) - n][(yPosCenterCell - j) - j].setClickState(CellClickState.CLICKED);
+//                                        }
+//                                    }
+//                                    xPosCenterCell -= i;
+//                                    yPosCenterCell -= j;
+//                                }
+
+                                    Field.cells[xPosCenterCell - i][yPosCenterCell - j].reveal();
+                                    Field.cells[xPosCenterCell - i][yPosCenterCell - j].setClickState(CellClickState.CLICKED);
+
                             }
                         } catch (ArrayIndexOutOfBoundsException aoobex) {
                         }
@@ -52,6 +73,10 @@ public abstract class Player extends MouseAdapter {
                 cell.setClickState(CellClickState.PROTECTED);
             }
         }
+    }
+
+    public void reveal(EventObject e) {
+
     }
 }
 
