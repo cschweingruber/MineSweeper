@@ -1,75 +1,3 @@
-//import javax.swing.*;
-//import java.awt.event.MouseEvent;
-//import java.awt.event.MouseListener;
-//
-//public class Cell extends JButton implements MouseListener {
-//
-//    /**
-//     * state variable
-//     * can be covered (default) (0)
-//     * can be turned (1)
-//     * can be a bomb (2)
-//     *
-//     */
-//    private int state = 0;
-//
-//    private Enum<CellState> clickState = CellState.NOT_CLICKED;
-//
-//    public Cell(String text) {
-//        setButtonText(text);
-//        addMouseListener(this);
-//    }
-//
-//    void setButtonText(String text) {
-//        setText(text);
-//    }
-//
-//    private void reveal() {
-//        setClickState(CellState.CLICKED);
-//    }
-//
-//    @Override
-//    public void mouseClicked(MouseEvent e) {
-//        reveal();
-//    }
-//
-//    @Override
-//    public void mousePressed(MouseEvent e) {
-//
-//    }
-//
-//    @Override
-//    public void mouseReleased(MouseEvent e) {
-//
-//    }
-//
-//    @Override
-//    public void mouseEntered(MouseEvent e) {
-//
-//    }
-//
-//    @Override
-//    public void mouseExited(MouseEvent e) {
-//
-//    }
-//
-//    public int getState() {
-//        return state;
-//    }
-//
-//    public void setState(int state) {
-//        this.state = state;
-//    }
-//
-//    public Enum<CellState> getClickState() {
-//        return clickState;
-//    }
-//
-//    public void setClickState(Enum<CellState> clickState) {
-//        this.clickState = clickState;
-//    }
-//}
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -83,7 +11,7 @@ public class Cell extends JButton {
      */
     private CellState state;
 
-    private CellClickState clickState = CellClickState.NOT_CLICKED;
+    private CellClickState clickState;
 
     private String id;
 
@@ -91,8 +19,9 @@ public class Cell extends JButton {
 
     public Cell(CellState cellState) {
         setState(cellState);
+        setClickState(CellClickState.NOT_CLICKED);
         if (cellState == CellState.BOMB) {
-            setBackground(Color.black);
+            setBackground(Color.black); //TODO: set img of bomb
         }
         addMouseListener(new Player() {
             @Override
@@ -108,9 +37,7 @@ public class Cell extends JButton {
         } else {
             setText("" + bombNeighbors);
         }
-        //TODO: REVEAL
         setClickState(CellClickState.CLICKED);
-        System.out.println("reveal");
         setBackground(Color.GRAY);
     }
 
@@ -144,6 +71,17 @@ public class Cell extends JButton {
 
     public void setClickState(CellClickState clickState) {
         this.clickState = clickState;
+        switch (clickState) {
+            case NOT_CLICKED:
+                setBackground(Color.GRAY);
+                break;
+            case CLICKED:
+                setBackground(Color.darkGray);
+                break;
+            case PROTECTED:
+                setBackground(Color.orange);    //TODO: stop-zeichen als bild!
+                break;
+        }
     }
 
 }

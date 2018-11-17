@@ -9,15 +9,16 @@ public class StartScreen extends JFrame {
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
         setSize(500, 500);
         setResizable(false);
+        setLocationRelativeTo(null);
 
         JLabel label = new JLabel("Willkommen zu Minesweeper!", SwingConstants.CENTER);
         add(label);
 
-        JLabel descr = new JLabel("lorem ipsum dolor si amet .....");
+        JLabel descr = new JLabel("Linksklick zum Aufdecken, Rechtsklick zum Schützen einer Zelle");
         add(descr);
 
-        JTextField textField = new JFormattedTextField(NumberFormat.getNumberInstance());
-        ((JFormattedTextField) textField).setValue(new Double(10));
+        JFormattedTextField textField = new JFormattedTextField(NumberFormat.getNumberInstance());
+        textField.setValue(10d);
         textField.setColumns(10);
         add(textField);
 

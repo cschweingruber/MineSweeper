@@ -12,6 +12,7 @@ public class UserInterface extends JFrame {
         setLayout(layout);
         setSize(500, 500);
         setMinimumSize(new Dimension(50, 50));
+        setLocationRelativeTo(null);
 
         field = new Field(number_of_cells);
         add(field);
