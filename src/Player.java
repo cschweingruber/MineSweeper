@@ -33,10 +33,10 @@ public abstract class Player extends MouseAdapter {
                         if (Field.cells[xPosCenterCell][yPosCenterCell].getBombNeighbors() == 0 && Field.cells[xPosCenterCell][yPosCenterCell].getClickState() != CellClickState.CLICKED) {
                             for (int i = -1; i <= 1; i++) {
                                 for (int j = -1; j <= 1; j++) {
-                                    if (Field.cells[xPosCenterCell + i][yPosCenterCell + j].getBombNeighbors() == 0) {
-                                        Field.cells[(xPosCenterCell + i) + i][(yPosCenterCell + j) + j].reveal();
-                                        Field.cells[(xPosCenterCell + i) + i][(yPosCenterCell + j) + j].setClickState(CellClickState.CLICKED);
-                                    }
+//                                    if (Field.cells[xPosCenterCell + i][yPosCenterCell + j].getBombNeighbors() == 0) {
+                                        Field.cells[(xPosCenterCell + i)][(yPosCenterCell + j)].reveal();
+                                        Field.cells[(xPosCenterCell + i)][(yPosCenterCell + j)].setClickState(CellClickState.CLICKED);
+//                                    }
                                 }
                             }
                         } else {
