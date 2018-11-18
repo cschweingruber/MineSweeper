@@ -17,6 +17,9 @@ public class Field extends JPanel {
     private CellState rndCellState;
     private int bombPercentage = 15;
 
+    static int xPosCenterCell;
+    static int yPosCenterCell;
+
     public Field(int NUMBER_OF_CELLS) {
         gridLayout = new GridLayout(NUMBER_OF_CELLS, NUMBER_OF_CELLS);
         cells = new Cell[NUMBER_OF_CELLS][NUMBER_OF_CELLS];
@@ -67,5 +70,50 @@ public class Field extends JPanel {
             }
         }
         //END FIELD
+    }
+
+    public static void reveal(Cell cell) {
+        if (cell.getClickState() != CellClickState.PROTECTED) {
+
+            xPosCenterCell = Integer.parseInt(cell.getId().substring(0, 1));
+            yPosCenterCell = Integer.parseInt(cell.getId().substring(1, 2));
+
+            try {
+                if (cells[xPosCenterCell][yPosCenterCell].getState() != CellState.BOMB) {
+                    if (cells[xPosCenterCell][yPosCenterCell].getBombNeighbors() == 0) {
+                        fillNoBombNeighbours();
+                    } else {
+                        cells[xPosCenterCell][yPosCenterCell].reveal();
+                        cells[xPosCenterCell][yPosCenterCell].setClickState(CellClickState.CLICKED);
+                    }
+                } else {
+//                    gameover = true;
+                    System.out.println("gameover");
+                }
+            } catch (ArrayIndexOutOfBoundsException aoobex) {
+            }
+        }
+    }
+
+    public static void fillNoBombNeighbours() {
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                if (cells[xPosCenterCell+i][yPosCenterCell+j].getBombNeighbors() == 0 && cells[xPosCenterCell][yPosCenterCell].getClickState() != CellClickState.CLICKED)
+                    reveal(cells[xPosCenterCell+i][yPosCenterCell+j]);
+            }
+        }
+    }
+
+    public static void setProtection(Cell cell) {
+        if (cell.getClickState() == CellClickState.PROTECTED) {
+            if (cell.getState() == CellState.BOMB) {
+                cell.setClickState(CellClickState.NOT_CLICKED);
+                cell.setBackground(Color.black);
+            } else {
+                cell.setClickState(CellClickState.NOT_CLICKED);
+            }
+        } else {
+            cell.setClickState(CellClickState.PROTECTED);
+        }
     }
 }
