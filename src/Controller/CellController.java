@@ -38,7 +38,7 @@ public class CellController {
         }
         cell.setId(id);
         //VIEW
-        cellView = new CellView(cellClickedListener);
+        cellView = new CellView(cellClickedListener, cell);
     }
 
     public CellView getCellView() {
@@ -74,7 +74,7 @@ public class CellController {
         return this.cell.getBombNeighbors();
     }
 
-    public void setBombNeighbors(int bombNeighbors) {
+    public void setCellBombNeighbors(int bombNeighbors) {
         this.cell.setBombNeighbors(bombNeighbors);
     }
 }

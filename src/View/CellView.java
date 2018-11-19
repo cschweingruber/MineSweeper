@@ -4,12 +4,19 @@
 
 package View;
 
+import Common.CellClickState;
+import Model.Cell;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseListener;
 
 public class CellView extends JButton {
-    public CellView(MouseListener clickListener) {
+
+    Cell cell;
+
+    public CellView(MouseListener clickListener, Cell cell) {
+        this.cell = cell;
         addMouseListener(clickListener);
     }
 
@@ -21,4 +28,20 @@ public class CellView extends JButton {
         }
         setBackground(Color.GRAY);
     }
+
+    public CellClickState getCellClickState() {
+        return this.cell.getClickState();
+    }
+
+    public String getCellId() {
+        return this.cell.getId();
+    }
+
+    public int getCellBombNeighbours() {
+        return this.cell.getBombNeighbors();
+    }
+
+//    public CellClickState getCellClickState() {
+//        return this.cell.getClickState();
+//    }
 }

@@ -6,6 +6,7 @@ import Common.CellState;
 import View.CellView;
 import View.FieldView;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -23,10 +24,17 @@ public class FieldController {
         cellControllers = new CellController[number_of_cells][number_of_cells];
         for (int i = 0; i < cellControllers.length; i++) {
             for (int j = 0; j < cellControllers.length; j++) {
+                int finalI = i;
+                int finalJ = j;
                 cellControllers[i][j] = new CellController(bombPercentage, String.valueOf(i) + String.valueOf(j), new MouseListener() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        reveal((CellView) e.getSource());
+                        if (SwingUtilities.isLeftMouseButton(e)) {
+                            System.out.println("click");
+                            reveal((CellView) e.getSource());
+                        } else {
+                            setProtection(cellControllers[finalI][finalJ]);
+                        }
                     }
 
                     @Override
@@ -53,6 +61,7 @@ public class FieldController {
             }
         }
         field.setGridLayout(number_of_cells);
+        setNeighbors();
         field.setVisible(true);
     }
 
@@ -75,7 +84,7 @@ public class FieldController {
                 }
                 //END CHECK FIELD OF 9
                 if (cellControllers[col][row].getCellState() != CellState.BOMB) {
-                    cellControllers[col][row].setBombNeighbors(bombCounter);
+                    cellControllers[col][row].setCellBombNeighbors(bombCounter);
                 }
                 bombCounter = 0;
             }
@@ -83,7 +92,7 @@ public class FieldController {
         //END FIELD
     }
 
-    public void reveal(CellController cell) {
+    public void reveal(CellView cell) {
         if (cell.getCellClickState() != CellClickState.PROTECTED) {
 
             xPosCenterCell = Integer.parseInt(cell.getCellId().substring(0, 1));
@@ -109,8 +118,8 @@ public class FieldController {
     public void fillNoBombNeighbours() {
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                if (cellControllers[xPosCenterCell+i][yPosCenterCell+j].getCellBombNeighbors() == 0 && cellControllers[xPosCenterCell][yPosCenterCell].getCellClickState() != CellClickState.CLICKED)
-                    reveal(cellControllers[xPosCenterCell+i][yPosCenterCell+j]);
+                if (cellControllers[xPosCenterCell+i][yPosCenterCell+j].getCellView().getCellBombNeighbours() == 0 && cellControllers[xPosCenterCell+i][yPosCenterCell+j].getCellView().getCellClickState() != CellClickState.CLICKED)
+                    reveal(cellControllers[xPosCenterCell+i][yPosCenterCell+j].getCellView());
             }
         }
     }
