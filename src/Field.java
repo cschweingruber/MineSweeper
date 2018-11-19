@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Random;
 
 public class Field extends JPanel {
@@ -10,7 +12,7 @@ public class Field extends JPanel {
      *                                           20 21  22
      */
 
-    public static Cell[][] cells;
+    public Cell[][] cells;
     private GridLayout gridLayout;
     private Random rnd;
     private int rndNumber;
@@ -38,7 +40,32 @@ public class Field extends JPanel {
                 } else {
                     rndCellState = CellState.DEFAULT;
                 }
-                cells[i][j] = new Cell(rndCellState);
+                cells[i][j] = new Cell(rndCellState, new MouseListener() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        setNeighbors();
+                    }
+
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+
+                    }
+
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+
+                    }
+
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+
+                    }
+
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+
+                    }
+                });
                 cells[i][j].setId(String.valueOf(i) + String.valueOf(j));
                 add(cells[i][j]);
             }
@@ -72,7 +99,7 @@ public class Field extends JPanel {
         //END FIELD
     }
 
-    public static void reveal(Cell cell) {
+    public void reveal(Cell cell) {
         if (cell.getClickState() != CellClickState.PROTECTED) {
 
             xPosCenterCell = Integer.parseInt(cell.getId().substring(0, 1));
@@ -95,7 +122,7 @@ public class Field extends JPanel {
         }
     }
 
-    public static void fillNoBombNeighbours() {
+    public void fillNoBombNeighbours() {
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 if (cells[xPosCenterCell+i][yPosCenterCell+j].getBombNeighbors() == 0 && cells[xPosCenterCell][yPosCenterCell].getClickState() != CellClickState.CLICKED)
@@ -104,7 +131,7 @@ public class Field extends JPanel {
         }
     }
 
-    public static void setProtection(Cell cell) {
+    public void setProtection(Cell cell) {
         if (cell.getClickState() == CellClickState.PROTECTED) {
             if (cell.getState() == CellState.BOMB) {
                 cell.setClickState(CellClickState.NOT_CLICKED);

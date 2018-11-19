@@ -1,8 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class Cell extends JButton {
+public class Cell extends JButton  {
 
     /**
      * state variable
@@ -17,7 +18,9 @@ public class Cell extends JButton {
 
     private int bombNeighbors;
 
-    public Cell(CellState cellState) {
+    private MouseListener l;
+
+    public Cell(CellState cellState, MouseListener l) {
         setState(cellState);
         setClickState(CellClickState.NOT_CLICKED);
         if (cellState == CellState.BOMB) {
@@ -26,7 +29,7 @@ public class Cell extends JButton {
         addMouseListener(new Player() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
+                l.mouseClicked(e);
             }
         });
     }
