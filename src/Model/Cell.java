@@ -1,14 +1,22 @@
+/*
+ * Copyright (c) 2018. School project
+ */
+
+package Model;
+
+import Common.CellClickState;
+import Common.CellState;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class Cell extends JButton  {
 
     /**
      * state variable
-     * can be covered (default) (CellState.NOT_CLICKED)
-     * can be turned (CellState.CLICKED)
+     * can be covered (default) (Common.CellState.NOT_CLICKED)
+     * can be turned (Common.CellState.CLICKED)
      */
     private CellState state;
 
@@ -18,20 +26,8 @@ public class Cell extends JButton  {
 
     private int bombNeighbors;
 
-    private MouseListener l;
-
-    public Cell(CellState cellState, MouseListener l) {
-        setState(cellState);
+    public Cell() {
         setClickState(CellClickState.NOT_CLICKED);
-        if (cellState == CellState.BOMB) {
-            setBackground(Color.black); //TODO: set img of bomb
-        }
-        addMouseListener(new Player() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                l.mouseClicked(e);
-            }
-        });
     }
 
     public void reveal() {

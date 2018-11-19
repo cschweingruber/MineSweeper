@@ -2,6 +2,9 @@
  * Copyright (c) 2018. School project
  */
 
+import Controller.GameController;
+import View.StartScreen;
+
 public class MineSweeper {
 
     /**
@@ -15,6 +18,6 @@ public class MineSweeper {
     }
 
     private MineSweeper() {
-        new GUIController();
+        new StartScreen();
     }
 }

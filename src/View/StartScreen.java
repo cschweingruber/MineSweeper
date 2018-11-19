@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2018. School project
+ */
+
+package View;
+
+import Controller.GameController;
+
 import javax.swing.*;
 import java.text.NumberFormat;
 
@@ -26,10 +34,9 @@ public class StartScreen extends JFrame {
         add(button);
         button.addActionListener(e -> {
             try {
-                this.fieldSize = Integer.parseInt(textField.getText());
+                setFieldSize(Integer.parseInt(textField.getText()));
+                new GameController(getFieldSize());
                 this.setVisible(false);
-                UserInterface ui = new UserInterface(this.fieldSize);
-                ui.setVisible(true);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -37,4 +44,13 @@ public class StartScreen extends JFrame {
 
         setVisible(true);
     }
+
+    public int getFieldSize() {
+        return fieldSize;
+    }
+
+    public void setFieldSize(int fieldSize) {
+        this.fieldSize = fieldSize;
+    }
+
 }
