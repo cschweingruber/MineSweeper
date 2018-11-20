@@ -18,14 +18,15 @@ public class CellController {
     int xPosCenterCell;
     int yPosCenterCell;
 
-    public CellController(CellView view, Cell cell, String id, int bombPercentage) {
+    CellController(CellView view, Cell cell, String id, int bombPercentage, int bombNeighbors) {
         this.cell = cell;
         this.view = view;
 
-        initCell(id, bombPercentage);
+        initCell(id, bombPercentage, bombNeighbors);
     }
 
-    private void initCell(String id, int bombPercentage) {
+    private void initCell(String id, int bombPercentage, int bombNeighbors) {
+        cell.setId(id);
         rnd = new Random();
         rndNumber = rnd.nextInt();
         if (rndNumber < bombPercentage) {
@@ -33,6 +34,8 @@ public class CellController {
         } else {
             cell.setState(CellState.DEFAULT);
         }
+
+        cell.setBombNeighbors(bombNeighbors);
     }
 
 

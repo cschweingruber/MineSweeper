@@ -14,14 +14,14 @@ public class FieldController {
     private int xPosCenterCell;
     private int yPosCenterCell;
 
-    public FieldController(FieldView view, Field field, int numberOfCells) {
+    FieldController(FieldView view, Field field, int numberOfCells) {
         this.view = view;
         this.field = field;
 
         initField(numberOfCells);
 
-//        setGridLayout();
-//        setVisible(true);
+        view.setGridLayout(numberOfCells);
+        view.setVisible(true);
     }
 
     private void initField(int numberOfCells) {
@@ -30,10 +30,15 @@ public class FieldController {
             for (int row = 0; row < field.getFieldSize(); row++) {
                 CellView cellView = new CellView();
                 Cell cell = new Cell();
-                new CellController(cellView, cell, String.valueOf(col) + String.valueOf(row), field.getBombPercentage());
+                new CellController(cellView, cell, String.valueOf(col) + String.valueOf(row), field.getBombPercentage(), bombNeighbours);
+
+                view.add(cellView);
             }
         }
     }
+
+
+
 
     public int getBombPercentage() {
         return this.field.getBombPercentage();
