@@ -11,7 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseListener;
 
-public class Cell extends JButton  {
+public class Cell {
 
     /**
      * state variable
@@ -28,16 +28,6 @@ public class Cell extends JButton  {
 
     public Cell() {
         setClickState(CellClickState.NOT_CLICKED);
-    }
-
-    public void reveal() {
-        if (this.bombNeighbors == 0) {
-            setText("");
-        } else {
-            setText("" + bombNeighbors);
-        }
-        setClickState(CellClickState.CLICKED);
-        setBackground(Color.GRAY);
     }
 
     public String getId() {

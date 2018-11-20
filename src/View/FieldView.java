@@ -4,21 +4,37 @@
 
 package View;
 
+import Controller.FieldController;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class FieldView extends JFrame {
 
+    private int numberOfCells;
     private GridLayout gridLayout;
+    private FieldController controller;
+    private CellView[][] cellViews;
 
-    public FieldView() {
+    public FieldView(int number_of_cells) {
         setSize(500, 500);
         setMinimumSize(new Dimension(50, 50));
         setLocationRelativeTo(null);
+
+        this.numberOfCells = number_of_cells;
+        controller = new FieldController(this);
+        cellViews = new CellView[this.numberOfCells][this.numberOfCells];
+
+        controller.createField(cellViews);
+
+        setGridLayout();
+        setVisible(true);
     }
 
-    public void setGridLayout(int number_of_cells) {
-        gridLayout = new GridLayout(number_of_cells, number_of_cells);
+    private void setGridLayout() {
+        gridLayout = new GridLayout(numberOfCells, numberOfCells);
         setLayout(gridLayout);
     }
+
+
 }

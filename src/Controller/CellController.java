@@ -8,10 +8,8 @@ import Common.CellClickState;
 import Common.CellState;
 import Model.Cell;
 import View.CellView;
-import View.FieldView;
 
 import java.awt.*;
-import java.awt.event.MouseListener;
 import java.util.Random;
 
 public class CellController {
@@ -21,14 +19,18 @@ public class CellController {
 
     private Random rnd;
     private int rndNumber;
+    private CellView view;
 
-    public CellController(int bombPercentage, String id, MouseListener cellClickedListener) {
-        generateCell(bombPercentage, id, cellClickedListener);
+    int xPosCenterCell;
+    int yPosCenterCell;
+
+    public CellController(int bombPercentage, String id, CellView view, Cell cell) {
+        this.cell = cell;
+        this.view = view;
+        generateCell(bombPercentage, id);
     }
 
-    public void generateCell(int bombPercentage, String id, MouseListener cellClickedListener) {
-        //MODEL
-        cell = new Cell();
+    public void generateCell(int bombPercentage, String id) {
         rnd = new Random();
         rndNumber = rnd.nextInt(100);
         if (rndNumber <= bombPercentage) {
@@ -37,26 +39,85 @@ public class CellController {
             cell.setState(CellState.DEFAULT);
         }
         cell.setId(id);
-        //VIEW
-        cellView = new CellView(cellClickedListener, cell);
-    }
-
-    public CellView getCellView() {
-        return this.cellView;
-    }
-
-    public void setCellBackground(Color color) {
-        this.cellView.setBackground(color);
     }
 
     public void setCellClickState(CellClickState cellClickState) {
         this.cell.setClickState(cellClickState);
     }
 
-    public void revealCell() {
-        this.cellView.reveal(this.cell.getBombNeighbors());
-        this.cell.setClickState(CellClickState.CLICKED);
+    public void setNeighbors(CellView[][] cellViews) {
+        int bombCounter = 0;
+        //FOR EVERY CELL
+        for (int col = 0; col < cellViews.length; col++) {
+            for (int row = 0; row < cellViews.length; row++) {
+                //CHECK FIELD OF 9
+                for (int i = -1; i <= 1; i++) {
+                    for (int j = -1; j <= 1; j++) {
+                        try {
+                            if (i == 0 && j == 0) {}
+                            else if (cellViews[col - i][row - j].getCellState() == CellState.BOMB) {
+                                bombCounter++;
+                            }
+                        } catch (ArrayIndexOutOfBoundsException aoobex) {
+                        }
+                    }
+                }
+                //END CHECK FIELD OF 9
+                if (cellViews[col][row].getCellState() != CellState.BOMB) {
+                    cellViews[col][row].setCellBombNeighbors(bombCounter);
+                }
+                bombCounter = 0;
+            }
+        }
+        //END FIELD
     }
+
+    public void revealCells(CellView[][] cellViews) {
+        if (cell.getClickState() != CellClickState.PROTECTED) {
+
+            xPosCenterCell = Integer.parseInt(cell.getId().substring(0, 1));
+            yPosCenterCell = Integer.parseInt(cell.getId().substring(1, 2));
+
+            try {
+                if (cellViews[xPosCenterCell][yPosCenterCell].getCellState() != CellState.BOMB) {
+                    if (cellViews[xPosCenterCell][yPosCenterCell].getCellBombNeighbors() == 0) {
+                        fillNoBombNeighbours();
+                    } else {
+                        cellViews[xPosCenterCell][yPosCenterCell].revealCell();
+                        cellViews[xPosCenterCell][yPosCenterCell].setCellClickState(CellClickState.CLICKED);
+                    }
+                } else {
+                    System.out.println("gameover");
+                }
+            } catch (ArrayIndexOutOfBoundsException aoobex) {
+            }
+        }
+    }
+
+    public void fillNoBombNeighbours() {
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                if (cell.getBombNeighbors() == 0 && cell.getClickState() != CellClickState.CLICKED)
+                    revealCells(cellControllers[xPosCenterCell+i][yPosCenterCell+j].getCellView());
+            }
+        }
+    }
+
+    public void setProtection(CellView cellView) {
+        if (cellView == CellClickState.PROTECTED) {
+            if (cellView.getCellState() == CellState.BOMB) {
+                cellView.setCellClickState(CellClickState.NOT_CLICKED);
+                cellView.setCellBackground(Color.black);
+            } else {
+                cellView.setCellClickState(CellClickState.NOT_CLICKED);
+            }
+        } else {
+            cellView.setCellClickState(CellClickState.PROTECTED);
+        }
+    }
+
+
+
 
     public CellState getCellState() {
         return this.cell.getState();

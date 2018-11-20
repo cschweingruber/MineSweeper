@@ -4,11 +4,11 @@
 
 package Controller;
 
+import View.FieldView;
+
 public class GameController {
 
-    private FieldController fieldController;
-
     public GameController(int number_of_cells) {
-        fieldController = new FieldController(number_of_cells);
+        new FieldView(number_of_cells);
     }
 }
