@@ -1,12 +1,16 @@
-/*
- * Copyright (c) 2018. School project
- */
-
 package Model;
 
 public class Field {
+    private int fieldSize;
+    private int bombPercentage;
 
-    private int bombPercentage = 15;
+    public int getFieldSize() {
+        return fieldSize;
+    }
+
+    public void setFieldSize(int fieldSize) {
+        this.fieldSize = fieldSize;
+    }
 
     public int getBombPercentage() {
         return bombPercentage;
@@ -15,5 +19,4 @@ public class Field {
     public void setBombPercentage(int bombPercentage) {
         this.bombPercentage = bombPercentage;
     }
-
 }

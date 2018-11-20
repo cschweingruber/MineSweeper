@@ -1,41 +1,17 @@
-/*
- * Copyright (c) 2018. School project
- */
-
 package Model;
 
 import Common.CellClickState;
 import Common.CellState;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.MouseListener;
-
 public class Cell {
 
-    /**
-     * state variable
-     * can be covered (default) (Common.CellState.NOT_CLICKED)
-     * can be turned (Common.CellState.CLICKED)
-     */
-    private CellState state;
-
-    private CellClickState clickState;
-
     private String id;
-
+    private CellState state;
+    private CellClickState clickState;
     private int bombNeighbors;
 
     public Cell() {
         setClickState(CellClickState.NOT_CLICKED);
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public CellState getState() {
@@ -46,6 +22,22 @@ public class Cell {
         this.state = state;
     }
 
+    public CellClickState getClickState() {
+        return clickState;
+    }
+
+    public void setClickState(CellClickState clickState) {
+        this.clickState = clickState;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public int getBombNeighbors() {
         return bombNeighbors;
     }
@@ -53,25 +45,5 @@ public class Cell {
     public void setBombNeighbors(int bombNeighbors) {
         this.bombNeighbors = bombNeighbors;
     }
-
-    public CellClickState getClickState() {
-        return clickState;
-    }
-
-    public void setClickState(CellClickState clickState) {
-        this.clickState = clickState;
-        switch (clickState) {
-            case NOT_CLICKED:
-                setBackground(Color.GRAY);
-                break;
-            case CLICKED:
-                setBackground(Color.darkGray);
-                break;
-            case PROTECTED:
-                setBackground(Color.orange);    //TODO: stop-zeichen als bild!
-                break;
-        }
-    }
-
 }
 

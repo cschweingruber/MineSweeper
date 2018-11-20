@@ -1,14 +1,13 @@
-/*
- * Copyright (c) 2018. School project
- */
-
 package Controller;
 
+import Model.Field;
 import View.FieldView;
 
 public class GameController {
 
-    public GameController(int number_of_cells) {
-        new FieldView(number_of_cells);
+    public GameController(int numberOfCells) {
+        FieldView view = new FieldView();
+        Field field = new Field();
+        FieldController controller = new FieldController(view, field, numberOfCells);
     }
 }

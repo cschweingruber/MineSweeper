@@ -2,7 +2,6 @@
  * Copyright (c) 2018. School project
  */
 
-import Controller.GameController;
 import View.StartScreen;
 
 public class MineSweeper {
