@@ -13,4 +13,10 @@ public class FieldController {
         view = new FieldView(field.getFieldSize(), field.getGameField());
     }
 
+    public void fieldClicked(int[] position) {
+        
+    }
+
+
+
 }

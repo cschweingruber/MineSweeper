@@ -5,6 +5,7 @@ import Model.Cell;
 import View.CellView;
 
 import java.awt.*;
+import java.awt.event.MouseListener;
 
 public class CellController {
 
@@ -12,8 +13,8 @@ public class CellController {
     private Cell cell;
 
     public CellController(double bombPercentage) {
-        view = new CellView();
-        cell = new Cell();
+        this.cell = new Cell();
+        this.view = new CellView(this.cell);
 
         if (Math.random()*100 < bombPercentage) {
             this.cell.setState(CellState.BOMB);
@@ -21,6 +22,16 @@ public class CellController {
         } else {
             this.cell.setState(CellState.DEFAULT);
         }
+
+    }
+
+    public CellState getCellState() {
+        return this.cell.getState();
+    }
+
+    public void setCellBombNeighbors(int bombNeighbors) {
+        this.cell.setBombNeighbors(bombNeighbors);
+        view.setText(String.valueOf(this.cell.getBombNeighbors()));
     }
 
     public CellView getView() {

@@ -1,6 +1,10 @@
 package Model;
 
+import Common.CellState;
 import Controller.CellController;
+import View.CellView;
+
+import java.awt.event.MouseListener;
 
 public class Field {
 
@@ -17,6 +21,34 @@ public class Field {
                 this.gameField[col][row] = new CellController(bombPercentage);
             }
         }
+
+        //Sets the Bombneighbors in Cell for each
+        int bombCounter = 0;
+        //FOR EVERY CELL
+        for (int col = 0; col < fieldSize; col++) {
+            for (int row = 0; row < fieldSize; row++) {
+                //CHECK FIELD OF 9
+                for (int i = -1; i <= 1; i++) {
+                    for (int j = -1; j <= 1; j++) {
+                        try {
+                            if (i == 0 && j == 0) {}
+                            else if (gameField[col - i][row - j].getCellState() == CellState.BOMB) {
+                                bombCounter++;
+                            }
+                        } catch (ArrayIndexOutOfBoundsException aoobex) {
+                        }
+                    }
+                }
+                //END CHECK FIELD OF 9
+                if (gameField[col][row].getCellState() != CellState.BOMB) {
+                    gameField[col][row].setCellBombNeighbors(bombCounter);
+                }
+                bombCounter = 0;
+            }
+        }
+        //END FIELD
+
+
     }
 
     public int getFieldSize() {
