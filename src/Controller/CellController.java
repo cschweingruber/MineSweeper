@@ -39,9 +39,25 @@ public class CellController {
         }
     }
 
-    public void reveal() {
-
+    public boolean reveal() {   //if cell is bomb then gameover/return false else continue/return true
+        if (this.cell.getState() == CellState.BOMB) {
+            //gameover
+            System.out.println("gameover");
+            return false;
+        }
+        this.cell.setClickState(CellClickState.CLICKED);
+        this.view.setBackground(Color.gray);
+        return true;
     }
+
+
+
+
+
+
+
+
+
 
     public void setClickState(CellClickState cellClickState) {
         this.cell.setClickState(cellClickState);

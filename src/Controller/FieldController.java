@@ -43,40 +43,42 @@ public class FieldController {
                 Cell cell = new Cell();
                 CellView cellView = new CellView(cell);
                 controller = new CellController(cellView, cell, String.valueOf(col) + String.valueOf(row), field.getBombPercentage());
-                CellController finalController = controller;
-                cellView.addMouseListener(new MouseListener() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        CellView sourceCell = (CellView) e.getSource();
-                        if (SwingUtilities.isLeftMouseButton(e)) {
-                            revealCell(sourceCell);
-                        } else {
-//                            finalController.setProtection(sourceCell);
-                        }
-                    }
 
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-
-                    }
-
-                    @Override
-                    public void mouseReleased(MouseEvent e) {
-
-                    }
-
-                    @Override
-                    public void mouseEntered(MouseEvent e) {
-
-                    }
-
-                    @Override
-                    public void mouseExited(MouseEvent e) {
-
-                    }
-                });
-
-                view.addCellView(cellView);
+//                cellView.addMouseListener(new MouseListener() {
+//
+//
+//                    @Override
+//                    public void mouseClicked(MouseEvent e) {
+//                        CellView sourceCell = (CellView) e.getSource();
+//                        if (SwingUtilities.isLeftMouseButton(e)) {
+//                            revealCell(sourceCell);
+//                        } else {
+////                            finalController.setProtection(sourceCell);
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void mousePressed(MouseEvent e) {
+//
+//                    }
+//
+//                    @Override
+//                    public void mouseReleased(MouseEvent e) {
+//
+//                    }
+//
+//                    @Override
+//                    public void mouseEntered(MouseEvent e) {
+//
+//                    }
+//
+//                    @Override
+//                    public void mouseExited(MouseEvent e) {
+//
+//                    }
+//                });
+//
+//                view.addCellView(cellView);
             }
         }
         setBombNeighbours();

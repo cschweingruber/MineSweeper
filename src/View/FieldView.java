@@ -7,7 +7,6 @@ public class FieldView extends JFrame {
 
     private int fieldSize;
 
-    CellView[][] field;
     int rowCounter = 0;
     int colCounter = 0;
 
