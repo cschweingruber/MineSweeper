@@ -3,14 +3,13 @@ package Controller;
 import Common.CellState;
 import Model.Cell;
 import View.CellView;
-
 import java.awt.*;
-import java.awt.event.MouseListener;
 
 public class CellController {
 
     private CellView view;
     private Cell cell;
+    private CellController[][] neighbors;
 
     public CellController(double bombPercentage) {
         this.cell = new Cell();
@@ -25,14 +24,27 @@ public class CellController {
 
     }
 
-    public CellState getCellState() {
+    public void setNeighbors(CellController[][] neighbors) {
+        this.neighbors = neighbors;
+        int bombNeighbors = 0;
+        for (int col = 0; col < this.neighbors.length; col++) {
+            for (int row = 0; row < this.neighbors.length; row++) {
+                try {
+                    if (this.neighbors[row][col].getState() == CellState.BOMB) {
+                        bombNeighbors++;
+                    }
+                } catch (Exception e) {}
+            }
+        }
+        this.cell.setBombNeighbors(bombNeighbors);
+        view.setText(String.valueOf(this.cell.getBombNeighbors()));
+
+    }
+
+    public CellState getState() {
         return this.cell.getState();
     }
 
-    public void setCellBombNeighbors(int bombNeighbors) {
-        this.cell.setBombNeighbors(bombNeighbors);
-        view.setText(String.valueOf(this.cell.getBombNeighbors()));
-    }
 
     public CellView getView() {
         return view;

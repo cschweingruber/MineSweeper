@@ -1,6 +1,6 @@
 package View;
 
-import Controller.GameController;
+import Controller.StartController;
 
 import javax.swing.*;
 import java.text.NumberFormat;
@@ -37,7 +37,7 @@ public class StartScreen extends JFrame {
         button.addActionListener(e -> {
             try {
                 setFieldSize(Integer.parseInt(textField.getText()));
-                new GameController(getFieldSize(), Double.valueOf(bomb.getText()));
+                new StartController(getFieldSize(), Double.valueOf(bomb.getText()));
                 this.setVisible(false);
             } catch (Exception ex) {
                 ex.printStackTrace();

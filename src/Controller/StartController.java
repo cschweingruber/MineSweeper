@@ -1,8 +1,8 @@
 package Controller;
 
-public class GameController {
+public class StartController {
 
-    public GameController(int fieldSize, double bombPercentage) {
+    public StartController(int fieldSize, double bombPercentage) {
         FieldController controller = new FieldController(fieldSize, bombPercentage);
     }
 }

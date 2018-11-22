@@ -2,6 +2,7 @@ package Model;
 
 import Common.CellClickState;
 import Common.CellState;
+import Controller.CellController;
 
 public class Cell {
 
