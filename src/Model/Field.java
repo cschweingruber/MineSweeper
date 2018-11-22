@@ -1,20 +1,20 @@
 package Model;
 
 import Controller.CellController;
-import View.CellView;
 
 public class Field {
 
-    private float bombPercentage;
+    private double bombPercentage;
     private int fieldSize;
     private CellController[][] gameField;
 
-    public Field(int fieldSize) {
+    public Field(int fieldSize, double bombPercentage) {
         this.fieldSize = fieldSize;
+        this.bombPercentage = bombPercentage;
         this.gameField = new CellController[this.fieldSize][this.fieldSize];
         for (int col= 0; col < this.fieldSize; col++) {
             for (int row = 0; row < this.fieldSize; row++) {
-                this.gameField[col][row] = new CellController();
+                this.gameField[col][row] = new CellController(bombPercentage);
             }
         }
     }
@@ -35,11 +35,11 @@ public class Field {
         this.gameField = gameField;
     }
 
-    public float getBombPercentage() {
+    public double getBombPercentage() {
         return bombPercentage;
     }
 
-    public void setBombPercentage(float bombPercentage) {
+    public void setBombPercentage(double bombPercentage) {
         this.bombPercentage = bombPercentage;
     }
 }

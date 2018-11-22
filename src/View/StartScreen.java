@@ -26,12 +26,18 @@ public class StartScreen extends JFrame {
         textField.setColumns(10);
         add(textField);
 
+        JFormattedTextField bomb = new JFormattedTextField(NumberFormat.getNumberInstance());
+        textField.setValue(10d);
+        textField.setColumns(10);
+        add(bomb);
+
+
         JButton button = new JButton("Zum Spiel");
         add(button);
         button.addActionListener(e -> {
             try {
                 setFieldSize(Integer.parseInt(textField.getText()));
-                new GameController(getFieldSize());
+                new GameController(getFieldSize(), Double.valueOf(bomb.getText()));
                 this.setVisible(false);
             } catch (Exception ex) {
                 ex.printStackTrace();

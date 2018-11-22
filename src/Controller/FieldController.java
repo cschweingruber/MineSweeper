@@ -8,8 +8,9 @@ public class FieldController {
     private FieldView view;
     private Field field;
 
-    public FieldController(int numberOfCells) {
-        field = new Field(numberOfCells);
+    public FieldController(int numberOfCells, double bombPercentage) {
+        field = new Field(numberOfCells, bombPercentage);
         view = new FieldView(field.getFieldSize(), field.getGameField());
     }
+
 }
