@@ -1,13 +1,8 @@
 package Controller;
 
-import Model.Field;
-import View.FieldView;
-
 public class GameController {
 
-    public GameController(int numberOfCells) {
-        FieldView view = new FieldView(numberOfCells);
-        Field field = new Field();
-        FieldController controller = new FieldController(view, field);
+    public GameController(int fieldSize) {
+        FieldController controller = new FieldController(fieldSize);
     }
 }
