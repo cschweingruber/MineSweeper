@@ -1,6 +1,7 @@
 package Model;
 
 import Controller.CellController;
+import View.CellView;
 
 public class Field {
 

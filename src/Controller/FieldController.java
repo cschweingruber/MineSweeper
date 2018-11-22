@@ -9,7 +9,7 @@ public class FieldController {
     private Field field;
 
     public FieldController(int numberOfCells) {
-        view = new FieldView();
         field = new Field(numberOfCells);
+        view = new FieldView(field.getFieldSize(), field.getGameField());
     }
 }
